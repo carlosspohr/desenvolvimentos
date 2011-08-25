@@ -23,6 +23,8 @@ import br.com.caelum.vraptor.ioc.Component;
  * Classe de gerenciamento das requisições e obtenção e autenticação de
  * usuários LDAP.
  * 
+ * 
+ * 
  * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática)
  */
 @Component
