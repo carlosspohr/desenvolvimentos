@@ -35,9 +35,18 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 
 /**
+ * Melhoria feita no interceptor feito pelo Lucas. Este interceptor
+ * aplica a regra de negócio da annotation @LoadObject.
  * 
- * @author carlos
- *
+ * Idéia original:
+ * @author Lucas Cavalcanti
+ * 
+ * @author Cecilia Fernandes
+ * 
+ * Hack:
+ * @author Carlos Alberto Junior Spohr Poletto (carlosjrcabello@gmail.com)
+ * 
+ * @since 3.3.2
  */
 @Intercepts(before=ParametersInstantiatorInterceptor.class)
 @Lazy
