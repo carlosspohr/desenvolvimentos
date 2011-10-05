@@ -34,6 +34,11 @@ import br.com.caelum.vraptor.view.FlashScope;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 
+/**
+ * 
+ * @author carlos
+ *
+ */
 @Intercepts(before=ParametersInstantiatorInterceptor.class)
 @Lazy
 public class EntityLoaderInterceptor implements Interceptor
@@ -80,29 +85,28 @@ public class EntityLoaderInterceptor implements Interceptor
 		{
 			Iterable<LoadObject> loads = Iterables.filter(asList(annotations[i]), LoadObject.class);
 			
-			LoadObject next = loads.iterator().next();
-			logger.info("REQUIRED: " + next.required());
-			logger.info("REDIRECT TO: " + next.redirectToWhenObjectNotFound());
 			if (!isEmpty(loads))
 			{
 				Object loaded = this.load(names[i], types[i]);
 
 				if (loaded == null)
 				{
-					logger.info("NAO ACHOU NADA.");
-					if(next.required())
+					LoadObject next = loads.iterator().next();
+					
+					if(next != null && next.required())
 					{
 						if(next.redirectToWhenObjectNotFound() != null && !next.redirectToWhenObjectNotFound().isEmpty())
 						{
-							logger.info("REDIRECIONANDO.");
+							logger.info("Entity not found, the page will be redirected to " + next.redirectToWhenObjectNotFound());
 							result.redirectTo(next.redirectToWhenObjectNotFound());
 						}
 						else
 						{
+							logger.info("Entity not found, the redirect URL was not specified, then i will be return nothing.");
 							result.nothing();
+							return;
 						}
 					}
-					return;
 				}
 
 				if (args != null)
